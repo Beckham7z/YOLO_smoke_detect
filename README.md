@@ -24,8 +24,8 @@
 
 ## 演示样例
 
-[演示图片](https://github.com/Beckham7z/YOLO_smoke_detect/tree/main/smoke_detection/static/demo1)
-[演示视频](https://github.com/Beckham7z/YOLO_smoke_detect/tree/main/smoke_detection/static/demo2)
+[演示图片](https://github.com/Beckham7z/YOLO_smoke_detect/blob/master/smoke_detection/static/examples/10.jpg)
+[演示视频](https://github.com/Beckham7z/YOLO_smoke_detect/blob/master/smoke_detection/static/demo2/111.webm)
 
 ## 安装和运行
 
