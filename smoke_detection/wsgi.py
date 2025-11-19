@@ -1,5 +1,5 @@
 """
-WSGI config for car_identification project.
+WSGI config for smoke_detection project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'car_identification.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'smoke_detection.settings')
 
 application = get_wsgi_application()
