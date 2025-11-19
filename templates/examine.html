@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+{#标题#}
+<div class="row justify-content-center align-items-center" style="background-image: url('{% static 'images/batch4.jpg' %}');height: 300px;">
+    <div class="col p-4">
+        <h1 class="text-white fw-bold">
+            您可以在本页面进行批量图片审核或网址图片审核
+        </h1>
+    </div>
+</div>
+{#上传图片并识别#}
+<div class="container bg-light my-1 p-2">
+    {# 加载指示器  #}
+    <div class="spinner container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-auto">
+                <div class="row justify-content-center">
+                    <h4 class="col-auto text-primary">请稍后...</h4>
+                </div>
+                <div class="row justify-content-center spinner-container">
+                    <div class="col-auto spinner-border text-primary" role="status">
+                        <span class="sr-only"></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{# 上传图片或视频表单 #}
+<div class="p-3 bg-white">
+    <h3 class="text-primary fw-bold my-3">上传待审核图片或待审核网址</h3>
+        <a href="{% url '111' %}" class="custom-btn">输入网址 </a>
+    <form class="row g-3 p-3" action="{% url 'examine' %}" method="POST" enctype="multipart/form-data" id="upload-form">
+        {% csrf_token %}
+        {{ form }}
+        <div class="col-auto ps-0">
+            <input type="submit" class="btn btn-success mb-3" value="Upload" id="upload-btn">
+        </div>
+    </form>
+</div>
+
+
+
+{#<div class="p-3 bg-white">#}
+{#    <form class="row g-3 p-3" action="{% url 'examine_url' %}" method="POST" id="upload-url-form">#}
+{#        {% csrf_token %}#}
+{#        <!-- 隐藏的input字段用于存储URL信息 -->#}
+{#        <input type="hidden" id="url-hidden-input" name="url" value="">#}
+        {# 添加输入网址的表单字段 #}
+{#        <div class="mb-3">#}
+{#            <label for="url-input" class="form-label">Input URL:</label>#}
+{#            <input type="text" class="form-control" id="url-input" name="url" required>#}
+{#        </div>#}
+{#    </form>#}
+{#</div>#}
+{##}
+{#<script>#}
+{#    document.getElementById("url-input").addEventListener("keydown", function(event) {#}
+{#        if (event.key === "Enter") {#}
+{#            event.preventDefault(); // 防止默认的回车键行为#}
+{##}
+{#            // 将输入框的值设置为隐藏字段的值#}
+{#            document.getElementById("url-hidden-input").value = document.getElementById("url-input").value;#}
+{##}
+{#            // 提交表单#}
+{#            document.getElementById("upload-url-form").submit();#}
+{#        }#}
+{#    });#}
+{#</script>#}
+ {# 显示上传的图片 #}
+ {% if all_results %}
+<div class="row p-3">
+    {% for result in all_results %}
+    <div class="col-md-4">
+        <div class="thumbnail-container">
+            <h2 class="text-primary fw-bold my-3">输入图片</h2>
+            <img src="{{ result.original }}" alt="Input Image">
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="thumbnail-container">
+            <h2 class="text-primary fw-bold my-3">检测结果</h2>
+            <img src="{{ result.output }}" alt="Output Image">
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="thumbnail-container">
+            <h2 class="text-primary fw-bold my-3">审核结果</h2>
+            {% if result.label == "smoke" %}
+            <img src="{% static 'images/3.jpg' %}" alt="Positive Image">
+            <p>Smoke Detected</p>
+            {% elif result.label == "no_smoke" %}
+            <img src="{% static 'images/4.jpg' %}" alt="Negative Image">
+            <p>Fake-Smoke Detected</p>
+            {% elif result.label == "No Detected" %}
+            <img src="{% static 'images/no.jpg' %}" alt="Not Detected Image">
+            <p>No Detected</p>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+
+{% endblock content %}
+
+
+
+
+
+    {#  上传图片或视频表单  #}
+{#    <div class="p-3  bg-white">#}
+{#        <h3 class="text-primary fw-bold my-3">Upload Batch Image </h3>#}
+{#        <form class="row g-3 p-3" action="{% url 'examine' %}" method="POST" enctype="multipart/form-data" id="upload-form">#}
+{#            {% csrf_token %}#}
+{#            {{form}}#}
+{#            <h5 id="file-input-error"></h5>#}
+{#            <div class="col-auto ps-0">#}
+{#                <input type="submit" class="btn btn-success mb-3" value="Upload" id="upload-btn">#}
+{#            </div>#}
+{#        </form>#}
+{#    </div>#}
+
+{#切割并识别颜色#}
+{#    {% if all_list %}#}
+{#    <div class="row p-4 bg-light">#}
+{#        <h2 class="text-primary">Attributes of each detection</h2>#}
+{#        {% for label , crop , plate , color in all_list %}#}
+{#        <div class="col-3 m-2 bg-white align-items-center">#}
+{#            <img src="data:image/jpg;base64,{{ crop }}" alt="My Image" class="img-fluid">#}
+{#            <div class="p-3">#}
+{#                <div class="row">#}
+{#                    <h5 class="col-6">Type : </h5>#}
+{#                    <p class="col-6">{{ label }}</p>#}
+{#                </div>#}
+{##}
+{#                <div class="row">#}
+{#                    <h5 class="col-6">Color : </h5>#}
+{#                    <p class="col-6">{{color}}</p>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        {% endfor %}#}
+{#    </div>#}
+{##}
+{#    {% endif %}#}

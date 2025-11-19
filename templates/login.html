@@ -1,0 +1,247 @@
+<!-- login.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body{
+            /* 设置背景渐变 */
+            background-image: linear-gradient(to left,
+            #9c88ff,#3cadeb);
+            {#display: flex;#}
+            {#justify-content: center;#}
+        }
+        .a{
+            position:relative;
+            top: 100px;
+            width: 1100px;
+            height: 550px;
+            box-shadow: 0 5px 15px rgba(0,0,0,.8);
+            display: flex;
+        }
+        ul li{
+    position: absolute;
+    border: 1px solid #fff;
+    background-color: #fff;
+    width: 30px;
+    height: 30px;
+    list-style: none;
+    opacity: 0;
+}
+        .square li{
+    top: 40vh;
+    left: 60vw;
+    /* 执行动画：动画名 时长 线性的 无限次播放 */
+    animation: square 10s linear infinite;
+}
+.square li:nth-child(2){
+    top: 80vh;
+    left: 10vw;
+    /* 设置动画延迟时间 */
+    animation-delay: 2s;
+}
+.square li:nth-child(3){
+    top: 80vh;
+    left: 85vw;
+    /* 设置动画延迟时间 */
+    animation-delay: 4s;
+}
+.square li:nth-child(4){
+    top: 10vh;
+    left: 70vw;
+    /* 设置动画延迟时间 */
+    animation-delay: 6s;
+}
+.square li:nth-child(5){
+    top: 10vh;
+    left: 10vw;
+    /* 设置动画延迟时间 */
+    animation-delay: 8s;
+}
+.circle li{
+    bottom: 0;
+    left: 15vw;
+    /* 执行动画 */
+    animation: circle 10s linear infinite;
+}
+.circle li:nth-child(2){
+    left: 35vw;
+    /* 设置动画延迟时间 */
+    animation-delay: 2s;
+}
+.circle li:nth-child(3){
+    left: 55vw;
+    /* 设置动画延迟时间 */
+    animation-delay: 6s;
+}
+.circle li:nth-child(4){
+    left: 75vw;
+    /* 设置动画延迟时间 */
+    animation-delay: 4s;
+}
+.circle li:nth-child(5){
+    left: 90vw;
+    /* 设置动画延迟时间 */
+    animation-delay: 8s;
+}
+        /* 定义动画 */
+@keyframes square {
+    0%{
+        transform: scale(0) rotateY(0deg);
+        opacity: 1;
+    }
+    100%{
+        transform: scale(5) rotateY(1000deg);
+        opacity: 0;
+    }
+}
+@keyframes circle {
+    0%{
+        transform: scale(0) rotateY(0deg);
+        opacity: 1;
+        bottom: 0;
+        border-radius: 0;
+    }
+    100%{
+        transform: scale(5) rotateY(1000deg);
+        opacity: 0;
+        bottom: 90vh;
+        border-radius: 50%;
+    }
+}
+        {#{#}
+        {#    font-family: Arial, sans-serif;#}
+        {#    margin: 0;#}
+        {#    padding: 0;#}
+        {#    background-color: #f2f2f2;#}
+        {#}#}
+        .container {
+            max-width: 400px;
+            margin: 10px auto; /* 调整上下间距 */
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.5); /* 设置背景颜色并加上透明度 */
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            font-size: 30px;
+        }
+        form {
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 90%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        img {
+            max-width: 7%; /* 图片最大宽度为父元素的50% */
+            opacity: 0.7; /* 设置透明度为70% */
+            border-radius: 50%; /* 将边框设为圆形 */
+        }
+
+        .centered-text {
+            text-align: center; /* 文本水平居中 */
+            font-size: 30px;
+            color: #333; /* 设置文字颜色 */
+            margin-top: 20px; /* 调整顶部间距 */
+            font-family: "Microsoft YaHei", "微软雅黑", sans-serif; /* 使用微软雅黑字体 */
+            margin-left: 10px; /* 添加左边距使文本与图片分开 */
+            font-weight: bold; /* 设置字体加粗 */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* 添加阴影效果：水平偏移量 垂直偏移量 模糊半径 阴影颜色 */
+        }
+        .container1 {
+            display: flex; /* 使用 Flexbox 布局 */
+            align-items: center; /* 垂直居中对齐 */
+            {#justify-content: center; /* 水平居中对齐 */#}
+             margin-top: 100px; /* 调整顶部间距 */
+            margin-bottom: 1px; /* 添加底部间距 */
+            margin-left: 520px; /* 向左偏移 20px */
+        }
+        .footer {
+            position: fixed;
+            bottom: 1px;
+            right: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<!-- 添加图片 -->
+    <div class="container1">
+        <!-- 添加图片 -->
+        <img src="{% static 'images/登录logo.png' %}" alt="Description of the image">
+        <p class="centered-text">智能抽烟图片检测系统</p>
+    </div>
+    <div class="container">
+        <h2>登录</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_username">姓名:</label>
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                <label for="id_password">密码:</label>
+                {{ form.password }}
+            </div>
+            <button type="submit">GO</button>
+        </form>
+        <p style="text-align: center;">
+            <a href="{% url 'register' %}" class="btn btn-primary">注册</a>
+        </p>
+
+    </div>
+<div class="footer">
+    <p>© <a href="mailto:377987701@qq.com">377987701@qq.com</a></p>
+</div>
+ <div class="circle">
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+  <div class="square">
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+</body>
+</html>

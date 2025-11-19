@@ -1,0 +1,256 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row justify-content-center align-items-center" id="content">
+    <div class="col p-4" id="main">
+      <h1 class="text-white fw-bold" style="margin-top: 30px;">
+        『您可以在此系统中检测图片或视频中存在的吸烟或非吸烟行为』
+      </h1>
+
+      <div class="row" style="margin-top: 60px;">
+        <div class="col-12 my-2">
+          <div class="my-3 p-3">
+            <button onclick="showArchitecture()" class="btn btn-primary  btn-block">☆查看系统架构图</button>
+          </div>
+        </div>
+        <div class="col-12 my-2">
+          <div class="my-3 p-3">
+            <button onclick="showMindmap()" class="btn btn-primary btn-block">☆查看系统功能介绍</button>
+          </div>
+        </div>
+        <div class="col-12 my-2">
+          <div class="my-3 p-3">
+            <button onclick="showApply()" class="btn btn-primary btn-block">☆查看系统应用场景</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<button id="toggleButton" class="btn btn-block" onclick="toggleContent()">
+  <span id="toggleIcon" class="fas fa-chevron-down"></span>
+</button>
+
+
+<div class="circle-container bg-white" >
+  <div class="col-3 text-center">
+    <div class="circle yolov8">
+      <i class="fas fa-camera"></i> <!-- Font Awesome 图标 -->
+      <span>YOLOv8模型</span>
+    </div>
+  </div>
+  <div class="col-3 text-center">
+    <div class="circle accurate">
+      <i class="fas fa-search"></i> <!-- Font Awesome 图标 -->
+      <span>检测精准</span>
+    </div>
+  </div>
+  <div class="col-3 text-center">
+    <div class="circle feature-rich">
+      <i class="fas fa-cogs"></i> <!-- Font Awesome 图标 -->
+      <span>功能丰富</span>
+    </div>
+  </div>
+  <div class="col-3 text-center">
+    <div class="circle clear-result">
+      <i class="fas fa-check-circle"></i> <!-- Font Awesome 图标 -->
+      <span>结果清晰</span>
+    </div>
+  </div>
+</div>
+
+
+{#  显示系统架构图  #}
+<div class="image-container" id="imageContainer" style="display: none;">
+    <span class="close-button" onclick="closeImageContainer()">X</span>
+    <img src="{% static 'images/系统架构图1.png' %}" alt="系统架构图1">
+</div>
+
+    {#  显示系统功能介绍  #}
+<div class="mindmap-container" id="mindmapContainer" style="display: none;">
+     <span class="close-button" onclick="closeMindmapContainer()">X</span>
+    <img src="{% static 'images/系统功能介绍.png' %}" alt="系统功能介绍">
+</div>
+
+        {#  显示系统应用场景  #}
+<div class="apply-container" id="applyContainer" style="display: none;">
+     <span class="close-button" onclick="closeapplyContainer()">X</span>
+        <img src="{% static 'images/系统应用场景.png' %}" alt="系统应用场景">
+</div>
+{##}
+<script>
+{#  打开和关闭系统架构图  #}
+function showArchitecture() {
+    var imageContainer = document.getElementById('imageContainer');
+    imageContainer.style.display = 'block';
+}
+
+function closeImageContainer() {
+    var imageContainer = document.getElementById('imageContainer');
+    imageContainer.style.display = 'none';
+}
+
+{#打开和关闭系统功能介绍#}
+    function showMindmap() {
+      var mindmapContainer = document.getElementById('mindmapContainer');
+      mindmapContainer.style.display = 'block';
+    }
+
+function closeMindmapContainer() {
+    var mindmapContainer = document.getElementById('mindmapContainer');
+    mindmapContainer.style.display = 'none';
+}
+    {#打开和关闭系统应用场景#}
+    function showApply() {
+      var applyContainer = document.getElementById('applyContainer');
+      applyContainer.style.display = 'block';
+    }
+
+function closeapplyContainer() {
+    var applyContainer = document.getElementById('applyContainer');
+    applyContainer.style.display = 'none';
+}
+
+{#图片跳转#}
+function goToTryPage() {
+    window.location.href = "/try/";
+}
+
+
+function toggleContent() {
+  var content = document.getElementById('content');
+  var icon = document.getElementById('toggleIcon');
+
+  content.classList.toggle('collapsed');
+  if (icon.classList.contains('fa-chevron-down')) {
+    icon.classList.remove('fa-chevron-down');
+    icon.classList.add('fa-chevron-up');
+  } else {
+    icon.classList.remove('fa-chevron-up');
+    icon.classList.add('fa-chevron-down');
+  }
+}
+
+</script>
+
+
+
+   <div class="container-fluid my-3 p-3 bg-light">
+ <div class="text-center">
+  <h2 class="my-3 fw-bold" style="color: #7469B6;">
+    <span style="border-bottom: 2px solid #E1AFD1; flex: 1; margin-right: 10px;"></span>
+    <span style="display: inline-block; width: 20px; height: 20px; background-color: #AD88C6;"></span>
+    <span style="display: inline-block; margin: 0 20px;">图片检测样例</span>
+    <span style="display: inline-block; width: 20px; height: 20px; background-color: #AD88C6;"></span>
+    <span style="border-bottom: 2px solid #007bff; flex: 1; margin-left: 10px;"></span>
+  </h2>
+</div>
+    <div class="row p-3 owl-carousel owl-theme" id="brands">
+        <img src="{% static 'examples/7698.jpeg' %}" onclick="goToTryPage()" class="rounded col-1 enlarge-on-hover" alt="audi" width="45" height="200">
+        <img src="{% static 'examples/output_8001.jpeg' %}" onclick="goToTryPage()" class="rounded col-1 enlarge-on-hover" alt="bmw" width="45" height="200">
+        <img src="{% static 'examples/output_7868.jpeg' %}" onclick="goToTryPage()" class="rounded col-1 enlarge-on-hover" alt="mercedes" width="45" height="200">
+        <img src="{% static 'examples/10.jpg' %}" onclick="goToTryPage()" class="rounded col-1 enlarge-on-hover" alt="gmc" width="45" height="200">
+        <img src="{% static 'examples/7744.jpeg' %}" onclick="goToTryPage()" class="rounded col-1 enlarge-on-hover" alt="chevrolet" width="45" height="200">
+        <img src="{% static 'examples/abc077.jpg' %}" onclick="goToTryPage()" class="rounded col-1 enlarge-on-hover" alt="honda" width="45" height="200">
+        <img src="{% static 'examples/abc179.jpg' %}" onclick="goToTryPage()" class="rounded col-1 enlarge-on-hover" alt="dodge" width="45" height="200">
+        <img src="{% static 'examples/7911.jpeg' %}" onclick="goToTryPage()" class="rounded col-1 enlarge-on-hover" alt="jeep" width="45" height="200">
+        <img src="{% static 'examples/30513.jpeg' %}" onclick="goToTryPage()" class="rounded col-1 enlarge-on-hover" alt="hyunidai" width="45" height="200">
+        <img src="{% static 'examples/37545.jpeg' %}" onclick="goToTryPage()" class="rounded col-1 enlarge-on-hover" alt="mazda" width="45" height="200">
+        <img src="{% static 'examples/36348.jpeg' %}" onclick="goToTryPage()" class="rounded col-1 enlarge-on-hover" alt="mitsubishi" width="45" height="200">
+        <img src="{% static 'examples/output_30081.jpeg' %}" onclick="goToTryPage()" class="rounded col-1 enlarge-on-hover" alt="nissan" width="45" height="200">
+        <img src="{% static 'examples/output_35085.jpeg' %}" onclick="goToTryPage()" class="rounded col-1 enlarge-on-hover" alt="toyota" width="45" height="200">
+        <img src="{% static 'examples/7692.jpeg' %}" onclick="goToTryPage()" class="rounded col-1 enlarge-on-hover" alt="volkes" width="45" height="200">
+        <img src="{% static 'examples/output_30175.jpeg' %}" onclick="goToTryPage()" class="rounded col-1 enlarge-on-hover" alt="ford" width="45" height="200">
+        <img src="{% static 'examples/7725.jpeg' %}" onclick="goToTryPage()" class="rounded col-1 enlarge-on-hover" alt="kia" width="45" height="200">
+        <img src="{% static 'examples/7745.jpeg' %}" onclick="goToTryPage()" class="rounded col-1 enlarge-on-hover" alt="volvo" width="45" height="200">
+        <img src="{% static 'examples/output_36999.jpeg' %}" onclick="goToTryPage()" class="rounded col-1 enlarge-on-hover" alt="suzuki" width="45" height="200">
+    </div>
+</div>
+
+
+
+
+{#    <div class="container-fluid my-3 p-3 ">#}
+{#        <div class="p-3 my-3 bg-light">#}
+{#            <h2 class="my-3 text-primary fw-bold">Demo for Image</h2>#}
+{#            <div class="row">#}
+{#                <div class="col-auto">#}
+{#                    <img src="{% static 'demo1/1.png' %}" alt="demo1">#}
+{#                </div>#}
+{#                <div class="col-auto">#}
+{#                    <img src="{% static 'demo1/2.png' %}" alt="demo1">#}
+{#                </div>#}
+{#                <div class="col-auto">#}
+{#                    <img src="{% static 'demo1/3.png' %}" alt="demo1">#}
+{#                </div>#}
+{#                <div class="col-auto">#}
+{#                    <img src="{% static 'demo1/4.png' %}" alt="demo1">#}
+{#                </div>#}
+{#                <div class="col-auto">#}
+{#                    <img src="{% static 'demo1/5.png' %}" alt="demo1">#}
+{#                </div>#}
+{#                <div class="col-auto">#}
+{#                    <img src="{% static 'demo1/6.png' %}" alt="demo1">#}
+{#                </div>#}
+{#                <div class="col-auto">#}
+{#                    <img src="{% static 'demo1/7.png' %}" alt="demo1">#}
+{#                </div>#}
+{#                <div class="col-auto">#}
+{#                    <img src="{% static 'demo1/8.png' %}" alt="demo1">#}
+{#                </div>#}
+{#                <div class="col-auto">#}
+{#                    <img src="{% static 'demo1/9.png' %}" alt="demo1">#}
+{#                </div>#}
+{#                <div class="col-auto">#}
+{#                    <img src="{% static 'demo1/10.png' %}" alt="demo1">#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+        <div class="p-3 my-3 bg-white">
+             <div class="text-center">
+  <h2 class="my-3 fw-bold" style="color: #7469B6;">
+    <span style="border-bottom: 2px solid #E1AFD1; flex: 1; margin-right: 10px;"></span>
+    <span style="display: inline-block; width: 20px; height: 20px; background-color: #AD88C6;"></span>
+    <span style="display: inline-block; margin: 0 20px;">视频检测样例</span>
+    <span style="display: inline-block; width: 20px; height: 20px; background-color: #AD88C6;"></span>
+    <span style="border-bottom: 2px solid #007bff; flex: 1; margin-left: 10px;"></span>
+  </h2>
+                 <div style="margin-bottom: 50px;">
+</div>
+            <div class="row">
+                <div class="col-6">
+                    <h2 style="font-size: 24px; text-shadow: 0 0 2px #000000; font-family: '幼圆', Arial, sans-serif;">吸烟行为检测样例</h2>
+                    <video width="100%" height="auto" controls>
+                        <source src="{% static 'demo2/111.webm' %}" type="video/webm">
+                    </video>
+                </div>
+                <div class="col-6">
+                    <h2 style="font-size: 24px; text-shadow: 0 0 2px #000000; font-family: '幼圆', Arial, sans-serif;">非吸烟行为检测样例</h2>
+                    <video width="100%" height="auto" controls>
+                        <source src="{% static 'demo2/1e.mp4' %}" type="video/mp4">
+                    </video>
+                </div>
+
+            </div>
+        </div>
+{#    </div>#}
+
+</div>
+
+<!--
+Attribute   Value       Description
+autoplay    autoplay 	Specifies that the video will start playing as soon as it is ready
+controls 	controls 	Specifies that video controls should be displayed (such as a play/pause button etc).
+height      pixels      Sets the height of the video player
+width 	    pixels 	    Sets the width of the video player
+loop        loop        Specifies that the video will start over again, every time it is finished
+muted       muted       Specifies that the audio output of the video should be muted
+poster      URL         Specifies an image to be shown while the video is downloading, or until the user hits the play button
+preload 	auto metadata none 	Specifies if and how the author thinks the video should be loaded when the page loads
+src         URL 	    Specifies the URL of the video file
+
+-->
+
+{% endblock content %}

@@ -1,0 +1,332 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smoking Identification</title>
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+        <!-- OWL -->
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" rel="stylesheet">
+
+
+    <style>
+        #main{
+            background-image:url("{% static 'images/back.jpg' %}");
+            height: 85vh;
+            opacity: 0.9;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+             border-radius: 5px; /* 添加圆角，可以根据需要调整像素值 */
+             box-shadow: 0 4px 80px 0 rgba(0, 0, 0, 0.2); /* 添加阴影效果 */
+            {#filter: drop-shadow(0 0 5px rgb(225, 175, 209));#}
+        }
+
+        .spinner {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            display: none;
+        }
+
+
+        .enlarge-on-hover {
+            transition: transform 0.3s ease; /* 添加过渡效果 */
+        }
+
+        .enlarge-on-hover:hover {
+            transform: scale(1.5); /* 放大到120% */
+        }
+
+        .image-container {
+              border-radius: 40px;
+              box-shadow: 0 0 50px rgba(0, 0, 0, 0.5); /*添加阴影效果*/
+              display: none;
+              position: fixed;
+              top: 50%;
+              left: 55%;
+              transform: translate(-50%, -50%) scale(0.7);
+              z-index: 9999;
+              border: none; /* 取消边框设计 */
+            }
+
+        .mindmap-container {
+            border-radius: 40px;
+              box-shadow: 0 0 50px rgba(0, 0, 0, 0.5); /*添加阴影效果*/
+              display: none;
+              position: fixed;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%) scale(0.75);
+              z-index: 9999;
+              border: none; /* 取消边框设计 */
+        }
+        .apply-container {
+             border-radius: 40px;
+              box-shadow: 0 0 60px rgba(0, 0, 0, 0.6); /*添加阴影效果*/
+              display: none;
+              position: fixed;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%) scale(0.7);
+              z-index: 9999;
+              border: none; /* 取消边框设计 */
+            }
+
+    .close-button {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          cursor: pointer;
+          z-index: 10000; /* 确保关闭按钮位于图片之上 */
+          padding: 5px 10px;
+          background-color: red;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          font-weight: bold;
+          box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .close-button:hover {
+          background-color: darkred; /* 鼠标悬停时修改背景颜色 */
+        }
+
+        .thumbnail-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .thumbnail-container img {
+            max-width: 50%;
+            max-height: 50%;
+            border: 2px solid #ddd; /* 边框样式 */
+            border-radius: 5px; /* 圆角 */
+            padding: 5px; /* 图片与边框的间距 */
+            transition: transform 0.2s ease-in-out; /* 添加过渡效果 */
+        }
+
+        .thumbnail-container img:hover {
+            transform: scale(3); /* 鼠标悬停时放大图片 */
+        }
+
+        .thumbnail-container p {
+            margin-top: 5px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+    {#  按钮毛玻璃  #}
+        .btn-primary {
+            background-color: rgba(255, 255, 255, 0.2); /* 设置背景色为半透明白色 */
+            backdrop-filter: blur(10px); /* 添加高斯模糊效果 */
+            color: #fff; /* 文本颜色为白色 */
+            border: none; /* 去除边框 */
+            padding: 10px 20px; /* 按钮内边距 */
+            border-radius: 5px; /* 圆角 */
+            cursor: pointer; /* 鼠标悬停样式 */
+        }
+
+     .custom-btn {
+    background-color: #637A9F; /* 蓝色背景 */
+    color: #fff; /* 白色文本 */
+    border: 1px solid #637A9F; /* 蓝色边框 */
+    border-radius: 5px; /* 圆角 */
+    padding: 8px 16px; /* 按钮内边距 */
+    font-size: 16px; /* 文本大小 */
+    cursor: pointer; /* 鼠标样式为指针 */
+          text-decoration: none;
+    transition: background-color 0.3s, color 0.3s; /* 添加过渡效果 */
+}
+
+.custom-btn:hover {
+    background-color: #0056b3; /* 鼠标悬停时的背景色 */
+    color: #fff; /* 鼠标悬停时的文本颜色 */
+}
+
+
+.circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  overflow: hidden;
+    padding: 10px 0;
+  margin: 40px 0; /* 调整上下边距 */
+    border: 2px solid #f2f2f2; /* 设置边框颜色和宽度 */
+  box-sizing: border-box; /* 控制盒模型 */
+}
+
+.circle-container {
+  display: flex;
+    margin-left: 170px;
+}
+
+.circle i {
+  margin-bottom: 10px; /* 调整图标与文字之间的距离 */
+    font-size: 35px;
+}
+
+.yolov8 {
+  background-color: #7469B6;
+}
+
+.accurate {
+  background-color: #AD88C6;
+}
+
+.feature-rich {
+  background-color: #E1AFD1;
+}
+
+.clear-result {
+  background-color: #FFB1B1;
+}
+
+.circle:hover {
+  filter: brightness(90%);
+}
+.text-center {
+  text-align: center;
+}
+
+{#折叠按钮#}
+
+#content {
+  overflow: hidden;
+  max-height: 1000px;
+  transition: max-height 0.5s ease;
+}
+
+#content.collapsed {
+  max-height: 0;
+  transition: max-height 0.5s ease;
+}
+
+#toggleIcon {
+  margin-right: 5px;
+  transition: transform 0.3s, color 0.3s;
+  font-size: 1.5rem; /* 设置图标大小 */
+  color: #525376; /* 设置图标颜色 */
+}
+
+#toggleIcon.fa-chevron-up {
+  transform: rotate(180deg);
+}
+
+#toggleButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+    width: 100%; /* 让按钮宽度与页面宽度相等 */
+  padding: 10px;
+  background-image: url("{% static 'images/back2.jpg' %}"); /* 使用图片作为背景 */
+  background-size: cover; /* 指定背景图片的尺寸适应按钮大小 */
+  border: none; /* 移除边框 */
+    filter: drop-shadow(0 0 5px #EBE0EA);
+}
+
+#toggleButton:hover {
+  filter: brightness(90%);
+}
+
+#toggleButton:hover #toggleIcon {
+  color: #fff; /* 鼠标悬停时图标颜色 */
+}
+
+
+
+    </style>
+    <!-- JQuery -->
+    <script src="https://unpkg.com/jsmind"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid justify-content-between">
+          <a class="navbar-brand" href="{% url 'index' %}">
+            <img src="{% static 'images/f2d7d2e357b990b13426d4b74d498156.jpeg    ' %}" alt="" width="50" height="50" class="d-inline-block sticky-top rounded-circle">
+            智能抽烟图片检测系统
+          </a>
+          <a href="{% url 'examine' %}" class="btn btn-primary">批量审核</a>
+          <a href="{% url 'try' %}" class="btn btn-primary">图片/视频检测</a>
+        <div class="user-avatar">
+            {% if user.is_authenticated %}
+                <a href="{% url 'user' %}">
+                    <img src="{% static 'images/默认头像.jpg' %}" alt="User Avatar" width="40" height="40" class="rounded-circle">
+                </a>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn btn-primary">登录</a>
+            {% endif %}
+        </div>
+        </div>
+      </nav>
+    {% block content %}{% endblock content %}
+    <!-- OWL -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+    <script>
+    $('.owl-carousel').owlCarousel({
+        margin:15,
+        nav:false,
+        dots:false,
+        autoplay:true,
+        dots:true,
+        loop:true,
+        responsive:{
+              0:{
+                  items:3
+              },
+              600:{
+                  items:6
+              },
+              1000:{
+                  items:9
+              }
+          }
+    });
+
+    $(document).ready(function() {
+        $('#upload-form').submit(function(e) {
+            $(".spinner").show();
+        });
+    });
+
+
+    function validateFileInput(input) {
+        const fileCount = input.files.length;
+        const errorElement = document.getElementById("file-input-error");
+
+        if (fileCount !== 1) {
+            errorElement.textContent = "Please select one file";
+            input.value = ""; // clear the input field
+            return false;
+        } else {
+            errorElement.textContent = "";
+            return true;
+        }
+    }
+
+    </script>
+      
+</body>
+</html>

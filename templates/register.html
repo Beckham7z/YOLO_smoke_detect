@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            {#background-color: #f4f4f4;#}
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+              {#margin: 0;#}
+  min-height: 100vh;
+  background-color: #e493d0;
+  background-image:
+    radial-gradient(closest-side, rgba(235, 105, 78, 1), rgba(235, 105, 78, 0)),
+    radial-gradient(closest-side, rgba(243, 11, 164, 1), rgba(243, 11, 164, 0)),
+    radial-gradient(closest-side, rgba(254, 234, 131, 1), rgba(254, 234, 131, 0)),
+    radial-gradient(closest-side, rgba(170, 142, 245, 1), rgba(170, 142, 245, 0)),
+    radial-gradient(closest-side, rgba(248, 192, 147, 1), rgba(248, 192, 147, 0));
+  background-size:
+    130vmax 130vmax,
+    80vmax 80vmax,
+    90vmax 90vmax,
+    110vmax 110vmax,
+    90vmax 90vmax;
+  background-position:
+    -80vmax -80vmax,
+    60vmax -30vmax,
+    10vmax 10vmax,
+    -30vmax -10vmax,
+    50vmax 50vmax;
+  background-repeat: no-repeat;
+  animation: 10s movement linear infinite;
+        }
+
+        .container {
+            background-color: #fff;
+            width: 30%; /* 设置容器宽度为50% */
+            margin: auto; /* 水平居中 */
+            padding: 30px;
+            border-radius: 15px;
+            {#box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);#}
+            text-align: center;
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.5); /* 设置背景颜色并加上透明度 */
+        }
+
+        h1 {
+            color: #AB47BC;
+        }
+
+        .form-group {
+            margin: 10px 0;
+        }
+
+        label {
+            text-align: left;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.3); /* 设置背景颜色并加上透明度 */
+}
+
+        button {
+            background-color: #E178C5;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #FF8A80;
+        }
+    </style>
+<script>
+    function registerSuccess() {
+        var username = document.getElementById("username").value;
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirm-password").value;
+
+        if (username === "" || email === "" || password === "" || confirmPassword === "") {
+            alert("请完善注册信息！");
+        } else {
+            alert("注册成功！");
+            window.location.href = "login.html";
+        }
+    }
+</script>
+<title>注册页面</title>
+</head>
+<body>
+    <div class="container">
+        <h1>欢迎注册</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">用户名：</label>
+                <input type="text" id="username" name="username">
+            </div>
+            <div class="form-group">
+                <label for="email">电子邮箱：</label>
+                <input type="email" id="email" name="email">
+            </div>
+            <div class="form-group">
+                <label for="password">密码：</label>
+                <input type="password" id="password" name="password">
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">确认密码：</label>
+                <input type="password" id="confirm-password" name="confirm-password">
+            </div>
+            <button type="submit" onclick="registerSuccess()">注册</button>
+        </form>
+       <a href="{% url 'login' %}">返回登录界面</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,285 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>User Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #00215e;
+            color: white;
+            padding: 20px;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .navbar ul li {
+            margin-right: 20px;
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: white;
+        }
+
+        .navbar ul li:not(:last-child) a {
+            margin-right: 400px; /* 设置按钮的右边距 */
+        }
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 0;
+}
+
+        .profile-details {
+            background-image: url("{% static 'images/true (2).jpg' %}");
+            background-position: center;
+            display: flex;
+            {#justify-content: space-between;#}
+            width: 1505px;
+            height: 200px;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 8px 80px 0 rgba(0, 0, 0, 0.2); /* 添加阴影效果 */
+        }
+
+        img {
+            margin-left: 300px;
+            margin-right: 150px;
+            max-width: 150px; /* 设置最大宽度为150像素 */
+            max-height: 150px;
+            border-radius: 50%;
+        }
+
+        .history-button a {
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .personal-info {
+            width: 900px;
+            height: 150px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-left: 250px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+
+                .history-container {
+            width: 900px;
+            height: 350px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-left: 250px;
+                                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+                .history-dropdown {
+    margin-top: 20px; /* 设置上边距 */
+    margin-bottom: 20px; /* 设置下边距 */
+}
+
+         {#  按钮毛玻璃  #}
+        .btn-primary {
+            justify-content: space-between;
+            background-color: rgba(255, 255, 255, 0.2); /* 设置背景色为半透明白色 */
+            backdrop-filter: blur(10px); /* 添加高斯模糊效果 */
+            color: #fff; /* 文本颜色为白色 */
+            border: none; /* 去除边框 */
+            padding: 10px 20px; /* 按钮内边距 */
+            border-radius: 5px; /* 圆角 */
+            cursor: pointer; /* 鼠标悬停样式 */
+        }
+
+        .btn-primary:hover {
+    background-color: #0056b3; /* 鼠标悬停时的背景色 */
+    color: #fff; /* 鼠标悬停时的文本颜色 */
+}
+
+        .btn-logout {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #e65c19; /* 设置按钮背景颜色 */
+    color: #fff; /* 设置文字颜色 */
+    text-decoration: none; /* 去掉下划线 */
+    border-radius: 4px; /* 设置圆角 */
+             float: right;
+}
+                .btn-logout:hover {
+    background-color: #c40c0c; /* 鼠标悬停时的背景色 */
+    color: #fff; /* 鼠标悬停时的文本颜色 */
+}
+
+                .image-section {
+    {#text-align: center;#}
+    margin-top: 0;
+    float: left;
+    width: 45%; /* 设置宽度为页面宽度的一部分，留出一些间距 */
+    padding: 10px; /* 添加一些内边距 */
+    box-sizing: border-box; /* 让内边距和边框计入宽度 */
+}
+
+.image-section h2 {
+    color: #0088cc;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.image-section img {
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 0;
+    margin-left: 20px;
+    margin-top: 0;
+}
+
+{#.container {#}
+{#    clear: both; /* 清除浮动，防止下方元素受到影响 */#}
+{#    text-align: center; /* 居中元素 */#}
+{#    margin-top: 20px; /* 添加一些顶部间距 */#}
+{#}#}
+
+
+    </style>
+   <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const select = document.getElementById('image-history');
+    const imageRow = document.getElementById('image-row');
+
+    select.addEventListener('change', function() {
+        const selectedOption = select.options[select.selectedIndex].value;
+        if (selectedOption === 'photo1') {
+            imageRow.style.display = 'block';
+        } else {
+            imageRow.style.display = 'none';
+        }
+    });
+});
+
+document.getElementById('image-history').addEventListener('change', function() {
+    var imageRecord = this.value;
+    if (imageRecord === 'photo1') {
+        document.querySelector('.history-dropdowns-container').style.display = 'none';
+    } else {
+        document.querySelector('.history-dropdowns-container').style.display = 'flex';
+    }
+});
+
+    document.getElementById('update-button').addEventListener('click', function() {
+        fetch('/update_images')  // 发送更新请求到 /update_images 路径
+            .then(response => response.json())
+            .then(data => {
+                // 更新下拉框选项
+                const select = document.getElementById('image-history');
+                select.innerHTML = '';
+                data.forEach(image => {
+                    const option = document.createElement('option');
+                    option.value = image.id;
+                    option.textContent = image.name;
+                    select.appendChild(option);
+                });
+            });
+    });
+</script>
+</head>
+<body>
+    <div class="navbar">
+        <ul>
+            <li><a href="{% url 'index' %}" class="btn-primary">主页</a></li>
+            <li><a href="{% url 'examine' %}" class="btn-primary">批量审核</a></li>
+            <li><a href="{% url 'try' %}" class="btn-primary">图片/视频检测系统</a></li>
+        </ul>
+    </div>
+
+    <div class="profile-container">
+        <div class="profile-details">
+            <img src="{% static 'images/c824dcf45df3cf3d565e949a74062885.jpeg' %}" alt="User Avatar">
+            <h2 class="my-3 fw-bold" style="color: #874ccc;">
+                <span style="display: inline-block; width: 20px; height: 20px; background-color: #AD88C6;"></span>
+                <span style="display: inline-block; margin: 0 20px; font-size: 32px;">个人信息中心</span>
+                <span style="display: inline-block; width: 20px; height: 20px; background-color: #AD88C6;"></span>
+              </h2>
+        </div>
+        <div class="personal-info">
+            <h2>用户名：{{ username }}</h2>
+            <a href="{% url 'login' %}" class="btn-logout">登出</a>
+            <p>密码: {{ password }}</p>
+
+        </div>
+{#        检测记录#}
+        <div class="history-container">
+    <h2>检测历史记录</h2>
+{#            <button id="update-button">更新</button>#}
+    <div class="history-dropdown">
+        <label for="image-history">图片检测记录：</label>
+        <select id="image-history">
+            <option value="photo2">图片记录</option>
+            <option value="photo1">图片记录 1</option>
+            <!-- 其他图片检测记录 -->
+        </select>
+
+<div class="container">
+    <div class="row justify-content-center" id="image-row" style="display: none;">
+            <div class="col-md-6 order-md-1">
+                <div class="image-section">
+                    <h2>输入图片</h2>
+                    <img src="{% static 'demo1/122.jpeg' %}" alt="输入图片">
+                </div>
+            </div>
+            <div class="col-md-6 order-md-2">
+                <div class="image-section">
+                    <h2>检测结果</h2>
+                    <img src="{% static 'demo1/output.png' %}" alt="检测结果">
+                </div>
+            </div>
+    </div>
+</div>
+{#    <div class="history-dropdown">#}
+{#        <label for="video-history">视频检测记录：</label>#}
+{#        <select id="video-history">#}
+{#            <option value="video1">视频记录 1</option>#}
+{#            <option value="video2">视频记录 2</option>#}
+{#            <option value="video3">视频记录 3</option>#}
+{#            <!-- 其他视频检测记录 -->#}
+{#        </select>#}
+{#    </div>#}
+{#    <div class="history-dropdown">#}
+{#        <label for="batch-history">批量审核记录：</label>#}
+{#        <select id="batch-history">#}
+{#            <option value="batch1">批量审核记录 1</option>#}
+{#            <option value="batch2">批量审核记录 2</option>#}
+{#            <option value="batch3">批量审核记录 3</option>#}
+{#            <!-- 其他批量审核记录 -->#}
+{#        </select>#}
+{#    </div>#}
+{#</div>#}
+{#    </div>#}
+</body>
+</html>
